@@ -1,0 +1,38 @@
+version: '1.0.0'
+services:
+  web:
+     build: .
+     hostname: discord_bot
+     tty: true
+     stdin_open: true
+     ports:
+        - 8080:8080
+     volumes:
+        - discord_bot_volume:/app
+        - ./fastapi:/app
+     networks:
+        - discord_bot_network
+  db:
+      image: postgres:13.1
+      hostname: discord_bot_postgres
+      ports:
+          - 5432:5432
+      environment:
+          - POSTGRES_USER=postgres
+          - POSTGRES_PASSWORD=postgres
+          - POSTGRES_DB=postgres
+      volumes:
+          - postgres_data:/var/lib/postgresql/data
+      networks:
+          - discord_bot_network
+      depends_on:
+          - web
+volumes:
+  discord_bot_volume:
+  postgres_data:
+networks:
+  discord_bot_network:
+
+      
+      
+      
