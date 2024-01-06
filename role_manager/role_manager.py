@@ -1,6 +1,6 @@
 import discord
-from discord import app_commands
 import os
+from discord import app_commands
 from os.path import join, dirname
 from dotenv import load_dotenv
 
