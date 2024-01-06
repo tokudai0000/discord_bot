@@ -14,11 +14,11 @@ tree = app_commands.CommandTree(client)
 #tokenやidの取得
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
-token = os.environ.get("TOKEN")                     #DiscordAPIのToken
-guild_id = os.environ.get("GUILD_ID")               #DiscordサーバーのID
-member_role_id = os.environ.get("MEMBER_ID")        #「メンバー」ロールのID
-visitor_role_id = os.environ.get("VISITOR_ID")      #「ビジター」ロールのID
-random_category_id = os.environ.get("CATEGORY_ID")  #「雑談」カテゴリのID
+token = os.environ.get("TOKEN")                         #DiscordAPIのToken
+guild_id = int(os.environ.get("GUILD_ID"))              #DiscordサーバーのID
+member_role_id = int(os.environ.get("MEMBER_ID"))       #「メンバー」ロールのID
+visitor_role_id = int(os.environ.get("VISITOR_ID"))     #「ビジター」ロールのID
+random_category_id = int(os.environ.get("CATEGORY_ID")) #「雑談」カテゴリのID
 
 @client.event
 async def on_ready():
