@@ -1,5 +1,6 @@
 import discord
 import os
+import sys
 from discord import app_commands
 from os.path import join, dirname
 from dotenv import load_dotenv
@@ -34,6 +35,7 @@ async def on_ready():
     random_category = guild.get_channel(random_category_id)
     await tree.sync(guild=guild)
     print("get on ready!")
+    sys.stdout.flush()
 
 #ユーザが加入した際にビジターロールを付与する
 @client.event
@@ -49,10 +51,6 @@ async def on_member_join(member:discord.Member):
 )
 @discord.app_commands.guilds(guild_id)
 async def memberize(ctx: discord.Interaction, user: discord.Member):
-    await guild.create_text_channel(name=f'random_{user}', category=random_category)
-    await user.add_roles(member_role)
-    await user.remove_roles(visitor_role)
-    await ctx.response.send_message("ok", ephemeral=True)
     if not(member_role in user.roles):  #ユーザがメンバーロールをもっていない場合のみ発火
         await guild.create_text_channel(name=f'random_{user}', category=random_category)
         await user.add_roles(member_role)
