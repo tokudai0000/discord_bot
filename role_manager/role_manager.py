@@ -22,7 +22,16 @@ random_category_id = os.environ.get("CATEGORY_ID")  #「雑談」カテゴリの
 
 @client.event
 async def on_ready():
+    global guild
+    global member_role
+    global visitor_role
+    global random_category
+
+    #オブジェクトの取得
     guild = client.get_guild(guild_id)
+    member_role = guild.get_role(member_role_id)
+    visitor_role=guild.get_role(visitor_role_id)
+    random_category = guild.get_channel(random_category_id)
     await tree.sync(guild=guild)
     print("get on ready!")
 
@@ -39,13 +48,7 @@ async def on_member_join(member:discord.Member):
     description="指定されたユーザに個人用randomチャンネルを作成してメンバーロールを与えます。"
 )
 @discord.app_commands.guilds(guild_id)
-async def vote(ctx: discord.Interaction, user: discord.Member):
-    #オブジェクトの取得
-    guild = client.get_guild(guild_id)
-    member_role = guild.get_role(member_role_id)
-    visitor_role=guild.get_role(visitor_role_id)
-    random_category = guild.get_channel(random_category_id)
-
+async def memberize(ctx: discord.Interaction, user: discord.Member):
     await guild.create_text_channel(name=f'random_{user}', category=random_category)
     await user.add_roles(member_role)
     await user.remove_roles(visitor_role)
