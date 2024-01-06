@@ -4,23 +4,21 @@ from discord import app_commands
 from os.path import join, dirname
 from dotenv import load_dotenv
 
+#クライアントのセットアップ
 intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True
 client = discord.Client(intents=intents)
 tree = app_commands.CommandTree(client)
 
-
+#tokenやidの取得
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
-
-#tokenやidの取得
-token = os.environ.get("TOKEN")
-guild_id = os.environ.get("GUILD_ID")
-member_role_id = os.environ.get("MEMBER_ID")
-visitor_role_id = os.environ.get("VISITOR_ID")
-random_category_id = os.environ.get("CATEGORY_ID")
-
+token = os.environ.get("TOKEN")                     #DiscordAPIのToken
+guild_id = os.environ.get("GUILD_ID")               #DiscordサーバーのID
+member_role_id = os.environ.get("MEMBER_ID")        #「メンバー」ロールのID
+visitor_role_id = os.environ.get("VISITOR_ID")      #「ビジター」ロールのID
+random_category_id = os.environ.get("CATEGORY_ID")  #「雑談」カテゴリのID
 
 @client.event
 async def on_ready():
