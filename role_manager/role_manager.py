@@ -20,7 +20,17 @@ guild_id = int(os.environ.get("GUILD_ID"))              #DiscordサーバーのI
 member_role_id = int(os.environ.get("MEMBER_ID"))       #「メンバー」ロールのID
 visitor_role_id = int(os.environ.get("VISITOR_ID"))     #「ビジター」ロールのID
 random_category_id = int(os.environ.get("CATEGORY_ID")) #「雑談」カテゴリのID
-
+# エラー処理
+if token is None:
+    raise ValueError("TOKEN変数が存在しません。")
+if guild_id is None:
+    raise ValueError("GUILD_ID変数が存在しません。")
+if member_role_id is None:
+    raise ValueError("MEMBER_ROLE_ID変数が存在しません。")
+if visitor_role_id is None:
+    raise ValueError("VISITOR_ROLE_ID変数が存在しません。")
+if random_category_id is None:
+    raise ValueError("RANDOM_CATEGORY_ID変数が存在しません。")
 @client.event
 async def on_ready():
     global guild
