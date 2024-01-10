@@ -62,14 +62,14 @@ async def on_member_join(member:discord.Member):
 @discord.app_commands.guilds(guild_id)
 async def memberize(ctx: discord.Interaction, user: discord.Member):
     if not(member_role in user.roles):  #ユーザがメンバーロールをもっていない場合のみ発火
-        await guild.create_text_channel(name=f'random_{user}', category=random_category)
+        await guild.create_text_channel(name=f'random_{user.name}', category=random_category)
         await user.add_roles(member_role)
         try:
             await user.remove_roles(visitor_role)
         except:
             pass
-        await ctx.response.send_message(f'Completely give {user} メンバー role', ephemeral=True)
+        await ctx.response.send_message(f'Completely give {user.name} メンバー role', ephemeral=True)
     else:
-        await ctx.response.send_message(f'{user} already has メンバー role', ephemeral=True)
+        await ctx.response.send_message(f'{user.name} already has メンバー role', ephemeral=True)
 
 client.run(token)
